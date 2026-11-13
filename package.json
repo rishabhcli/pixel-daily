@@ -1,0 +1,37 @@
+{
+  "private": true,
+  "name": "pixel-daily",
+  "version": "0.0.0",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "dev": "devvit playtest",
+    "deploy": "npm run test:types && npm run test:unit && npm run build && devvit upload",
+    "launch": "npm run deploy && devvit publish",
+    "login": "devvit login",
+    "audit:art": "node --experimental-strip-types --no-warnings=ExperimentalWarning tools/audit.mjs",
+    "test:types": "tsc --noEmit -p tools/tsconfig.client.json && tsc --noEmit -p tools/tsconfig.server.json",
+    "test:unit": "node --experimental-strip-types --no-warnings=ExperimentalWarning --test \"src/**/*.test.ts\"",
+    "test:smoke": "npm run build && node --experimental-strip-types --no-warnings=ExperimentalWarning tools/smoke.mjs",
+    "preview": "npm run build && node --experimental-strip-types --no-warnings=ExperimentalWarning tools/preview.mjs",
+    "prettier": "prettier --write ."
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@devvit/start": "0.15.3",
+    "@devvit/web": "0.15.3",
+    "@hono/node-server": "2.1.6",
+    "devvit": "0.15.3",
+    "hono": "4.13.17"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "esbuild-wasm": "^0.28.2",
+    "jsdom": "^31.0.0",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3"
+  }
+}
